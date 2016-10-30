@@ -1,0 +1,15 @@
+{
+  "manifest_version": 2,
+
+  "name": "Anotode",
+  "version": "0.1",
+  "description": "Anotode Browser Extension",
+  "permissions": [
+    "activeTab"
+  ],
+  "browser_action": {
+    "default_title": "Anotode",
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  }
+}
