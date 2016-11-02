@@ -19,6 +19,8 @@ xmlns:fb="http://www.facebook.com/2008/fbml">
       /* All the events registered */
       FB.Event.subscribe('auth.login', function(response) {
         // do something with response
+        var uid = response.authResponse.userID;
+          console.log(uid);
         getUserDetails();
         login();
       });
@@ -30,8 +32,7 @@ xmlns:fb="http://www.facebook.com/2008/fbml">
       FB.getLoginStatus(function(response) {
         if (response.session) {
           // logged in and connected user, someone you know
-          var uid = response.authResponse.userID;
-          console.log(" the user id is "+ uid)
+
           login();
         }
       });
