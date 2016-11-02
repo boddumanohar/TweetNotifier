@@ -30,6 +30,8 @@ xmlns:fb="http://www.facebook.com/2008/fbml">
       FB.getLoginStatus(function(response) {
         if (response.session) {
           // logged in and connected user, someone you know
+          var uid = response.authResponse.userID;
+          console.log(" the user id is "+ uid)
           login();
         }
       });
