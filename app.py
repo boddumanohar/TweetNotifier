@@ -35,9 +35,9 @@ def main():
 	return "The number of tweets postedby "+ handle_name + " is "+ str(counter)
 
 
-@app.route('/login')
+@app.route('/login/', methods=['GET'])
 def login():
-	return render_template('index3.html')	
+	return render_template('login.html')	
 
 
 # adjusting data and time.
