@@ -25,14 +25,14 @@ timestamp = datetime.now().replace(minute = 0)
 def main():
 	counter = 0;
 	lastFetchedTweetId = 791483941886697500
-	handle_name = aviaryan123
-	itpTweets = twitter.statuses.user_timeline(screen_name='handle_name', since_id=lastFetchedTweetId)
+	handle_name = 'aviaryan123'
+	itpTweets = twitter.statuses.user_timeline(screen_name=handle_name, since_id=lastFetchedTweetId)
 	templateData = {
 		 'itpTweets' : itpTweets
 	}
 	for _ in itpTweets:
 		counter += 1
-	return "The number of tweets postedby "+handlename+ " is "+ str(counter)
+	return "The number of tweets postedby "+ handle_name + " is "+ str(counter)
 
 
 @app.route('/login')
