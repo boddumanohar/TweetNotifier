@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 </head>
 <body>
-<div id="fb-root"></div>  
+  
 <script>
 
   function statusChangeCallback(response) {
@@ -15,12 +15,9 @@
       testAPI();
       window.location.replace('http:')
     } else if (response.status === 'not_authorized') {
-      // The person is logged into Facebook, but not your app.
       document.getElementById('status').innerHTML = 'Please log ' +
         'into this app.';
     } else {
-      // The person is not logged into Facebook, so we're not sure if
-      // they are logged into this app or not.
       document.getElementById('status').innerHTML = 'Please log ' +
         'into Facebook.';
     }
@@ -44,7 +41,6 @@
 
   FB.getLoginStatus(function(response) {
         console.log('printing acess token ')
-
   if (response.status === 'connected') {
     console.log(response.authResponse.accessToken);
   }
@@ -62,20 +58,6 @@
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));
 
-// (function() {
-//         var e = document.createElement('script');
-//         e.type = 'text/javascript';
-//         e.src =  'http://connect.facebook.net/en_US/all.js';
-//         e.async = true;
-//         document.getElementById('fb-root').appendChild(e);
-//       }());
-
-
-function myfacebookLogin() {
-  FB.login(function(response){
-    console.log('response')
-  }, {scope="public_profile,email"});
-}
 
   function testAPI() {
     console.log('Welcome!  Fetching your information.... ');
@@ -86,15 +68,12 @@ function myfacebookLogin() {
         'Thanks for logging in, ' + response.name + '!';
     });
   }
-  console.log('ended')
+
 </script>
 
 
-<h2>Acess token demo </h2>
-  <button onClick="myfacebookLogin()">Login to facebook </button>
-<!-- 
 <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-</fb:login-button> -->
+</fb:login-button>
 
 <div id="status">
 </div>
