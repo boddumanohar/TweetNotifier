@@ -42,6 +42,8 @@
   });
 
   FB.getLoginStatus(function(response) {
+        console.log('printing acess token ')
+
   if (response.status === 'connected') {
     console.log(response.authResponse.accessToken);
   }
