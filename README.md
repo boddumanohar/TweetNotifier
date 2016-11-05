@@ -16,3 +16,6 @@ In this task, I am doing Chrome pluggin and Developing REST API in python flask 
 - When the user signs in/up, facebook will verify the user and gives an ID associated with for that user. If such user doesn't exists, then that ID will be stored in a database and handles  _@realDonaldTrump_ and _@HillaryClinton_ shall be added by default.
 - The chrome pluggins keeps checking for every 5min for updates.If there is update in any of the handles, the user will be notified of the same.
 
+#### TODO
+ -  Prasing JSON data that was sent by server in the chrome application.
+ -  Printing the token, geting user ID after facebook login.

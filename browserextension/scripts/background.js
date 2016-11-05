@@ -13,7 +13,7 @@ chrome.runtime.onInstalled.addListener(function(object) {
 
     if (!localStorage.version || localStorage.version != currentversion) {
         chrome.browserAction.setBadgeText({
-            text: "NEW"
+            text: "Login with facebook"
         });
         localStorage.version = currentversion
 
@@ -21,5 +21,6 @@ chrome.runtime.onInstalled.addListener(function(object) {
 });
 
 chrome.browserAction.onClicked.addListener(function (tab) { //Fired when User Clicks ICON
-     chrome.tabs.create({url: "https://www.google.co.in/#q=pnr+status"});
+     // chrome.tabs.create({url: "https://www.google.co.in/#q=pnr+status"});
+     
 });

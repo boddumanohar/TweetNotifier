@@ -1,11 +1,12 @@
 {
   "background": {
-    "scripts": ["background.js"]
+     "page": "background.html",
+      "persistent": true
   },
 
   "manifest_version": 2,
 
-  "name": "Anotode",
+  "name": "Bubble",
   "version": "0.1",
   "description": "Bubble Browser Extension",
 
