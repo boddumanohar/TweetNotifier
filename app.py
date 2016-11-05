@@ -3,6 +3,7 @@ import time
 from twitter import *
 from flask import Flask, request, render_template, redirect, abort, flash, jsonify
 from datetime import datetime
+from models import Result
 
 
 
@@ -18,6 +19,13 @@ OAUTH_SECRET='kJkNlPDjZZHWxLsQ6gBSu2tIEj8oEqegLqL9jqI3PTPBX'
 
 twitter = Twitter(auth=OAuth(OAUTH_TOKEN, OAUTH_SECRET, CONSUMER_KEY, CONSUMER_SECRET))
 timestamp = datetime.now().replace(minute = 0)
+
+# setting up Config files 
+
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URI']
+
+db = SQLAlchemy(app)
+
 
 
 # setting up routes 
