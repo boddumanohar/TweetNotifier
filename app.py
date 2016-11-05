@@ -3,7 +3,7 @@ import time
 from twitter import *
 from flask import Flask, request, render_template, redirect, abort, flash, jsonify
 from datetime import datetime
-# import handles
+
 
 
 app = Flask(__name__)   # create our flask app
@@ -40,24 +40,14 @@ def main():
 	# return "The number of tweets postedby "+ handle_name + " is "+ str(counter)+ " " + t.id
 
 
-@app.route('/login/', methods=['GET'])
+@app.route('/login/', methods=['GET','POST'])
 def login():
 	return render_template('login.html')	
-
-
-# adjusting data and time.
-
-@app.template_filter('strftime')
-def _jinja2_filter_datetime(date, fmt=None):
-    pyDate = time.strptime(date,'%a %b %d %H:%M:%S +0000 %Y') # convert twitter date string into python date/time
-    return time.strftime('%Y-%m-%d %H:%M:%S', pyDate) # return the formatted date.
     
 # --------- Server On ----------
 # start the webserver
 
-
 if __name__ == "__main__":
 	app.debug = True
-	
 	port = int(os.environ.get('PORT', 5000)) # locally PORT 5000, Heroku will assign its own port
 	app.run(host='0.0.0.0', port=port)
