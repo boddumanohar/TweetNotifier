@@ -29,7 +29,7 @@ timestamp = datetime.now().replace(minute = 0)
 
 # app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URI']
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://manoharreddy@localhost/taskcprecog'
-
+# app.config['SQLALCHEMY_DATABASE_URI'] = ''
 # setting up DB 
 
 db = SQLAlchemy(app)
