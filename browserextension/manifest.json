@@ -1,7 +1,6 @@
 {
   "background": {
-     "page": "background.html",
-      "persistent": true
+     "scripts" : ["background.js"]
   },
 
   "manifest_version": 2,
@@ -11,12 +10,11 @@
   "description": "Bubble Browser Extension",
 
   "permissions": [
-    "activeTab",
-    "https://ajax.googleapis.com/"
+   "notifications"
   ],
 
   "browser_action": {
-    "default_title": "Bubble",
-    "default_icon": "icon.png"
+    "default_popup" : "index.html"
   }
+
 }

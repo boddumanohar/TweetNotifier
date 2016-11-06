@@ -22,11 +22,14 @@
 chrome.runtime.sendMessage({
         method: 'GET',
         action: 'xhttp',
-        url: 'https://www.facebook.com/v2.8/dialog/oauth?client_id=664416747062739&redirect_uri=http://taskc415.heroku.com'
+        url : 'http://0.0.0.0:5000/'
+        // url: 'https://www.facebook.com/v2.8/dialog/oauth?client_id=664416747062739&redirect_uri=http://taskc415.heroku.com'
         
     }, function(responseText) {
-        var resp = JSON.parse(responseText);
-        alert(resp.response_code);
+        var stringify = JSON.stringify(responseText)
+        var resp = JSON.parse(stringify);
+
+         alert(resp.tweets);
     });
 
 //  chrome.runtime.sendMessage({
