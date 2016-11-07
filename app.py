@@ -6,13 +6,8 @@ from datetime import datetime
 
 from flask_sqlalchemy import SQLAlchemy
 
-# # from models import User, Handle
-# import models
-# # import models.Handle
-
-
-
 app = Flask(__name__)   # create our flask app
+db = SQLAlchemy(app)
 
 # configure Twitter API
 
@@ -28,68 +23,60 @@ timestamp = datetime.now().replace(minute = 0)
 # setting up Config files 
 
 # app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URI']
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://manoharreddy@localhost/taskcprecog'
-# app.config['SQLALCHEMY_DATABASE_URI'] = ''
-# setting up DB 
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://manoharreddy@localhost/taskcprecog2'
+ 
 
-db = SQLAlchemy(app)
 
 class User(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
-	user_id = db.Column(db.BigInteger, unique = True)
-	lastFetchedTweetId = db.Column(db.BigInteger(), unique= True)
+	user_id = db.Column(db.String, unique = True)
 	handles = db.relationship('Handle', backref='owner', lazy='dynamic')
-
-
-	# def __init__(self, user_id, handles):
-	# 	self.user_id = user_id
-	# 	self.handles = handles
-
-
-	# def __repr__(self):
-	# 	return 'users %r' %self.user_id	
 
 class Handle(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
 	handle_name = db.Column(db.String(20))
+	lastFetchedTweetId = db.Column(db.String(), unique= True)
 	owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-
-		# def __init__(self, handle_name, owner):
-		# 	self.handle_name = handle_name
-		# 	self.owner = owner
-
-# setting up routes 
-# gets user_id by default 
 
 @app.route('/', methods=['GET', 'POST'])
 def main():
 	counter = 0;
 	myvar = 0
-
+# since_id=handle.lastFetchedTweetId
 	# lastFetchedTweetId = 791483941886697500
 	# handle_name = 'aviaryan123'
 
 	# lastFetchedTweetId = User.query.filter_by(lastFetchedTweetId).first()
 	# lastFetchedTweetId = lastFetchedTweetId.Users.all()
-
-	# user_id = request.form['user_id']
-	r = Users.query.filter_by(user_id=123456).first()
-	for handle_name in r.handles.all():
-		itpTweets = twitter.statuses.user_timeline(screen_name=handle_name, since_id=lastFetchedTweetId)
-		r = {}
+	empList = []
+	empDict = {}
+	handlesList = []
+	user_id = 123456
+	r = User.query.filter_by(user_id="123456").first()
+	for i in r.handles.all():
+		counter = 0	
+		itpTweets = twitter.statuses.user_timeline(screen_name=i.handle_name, since_id=i.lastFetchedTweetId)
 		for t in itpTweets:
 			if(counter==0):
-				myvar  = t['id']
+				latesttweet  = t['id']
 				counter += 1
 			else:	 
 				counter += 1
-
+		empDict = {
+		"name" : i.handle_name,
+		"count" : counter
+		}
+		empList.append(empDict)	
+		if(counter > 0):
+			Handle.query.filter_by(handle_name=i.handle_name).update({"lastFetchedTweetId":latesttweet})
+			db.session.commit()
 	# update the table with the latestTweetID
 	# latestTweetID = myvar
 	# stmt = update(Users).where(users.user_id==user_id).\
  #        values(lastFetchedTweetId=latestTweetID)
 
-	return  jsonify({"tweets":counter})
+	return jsonify(empList)
+	# return json.dumps(empList)
 
 
 @app.route('/login/', methods=['GET','POST'])
@@ -103,9 +90,12 @@ def addinghandle():
 @app.route('/postHandle', methods=['POST'])
 def addHandle():
 	# db.session.delete(models.User.query.filter_by(user_id=request.form['user_id']).first())
+	latestTweetID = 0
 	myowner = User.query.filter_by(user_id=request.form['user_id']).first()
 	new_handle = request.form['handle']
-	myhandle = Handle(handle_name=new_handle, owner = myowner)
+	itpTweets = twitter.statuses.user_timeline(screen_name=new_handle, count = 1)
+	latestTweetID = itpTweets[0]['id']
+	myhandle = Handle(handle_name=new_handle, lastFetchedTweetId = latestTweetID, owner = myowner)
 	db.session.add(myhandle)
 	db.session.commit()
 	return redirect(url_for('addinghandle'))
