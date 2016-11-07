@@ -1,17 +1,9 @@
 {
-  // "background": {
-  //    // "scripts" : ["background.js"]
-  //    "page" : "background.html"
-  //    "persiste"
-  // },
-
   "background": {
       "page": "background.html",
       "persistent": true
    },
-
-   "content_security_policy": "[script-src 'self'; object-src 'self']",
-
+   
   "manifest_version": 2,
 
   "name": "Bubble",
