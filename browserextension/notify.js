@@ -29,7 +29,7 @@ function callback2() {
 function myfunction() {
  console.log()
 
- $.getJSON('http://0.0.0.0:5000/', function(result){
+ $.getJSON('https://taskc415.herokuapp.com/', function(result){
   for (var i in result) {
   	if(result[i]['count'] > 0){
   	var options = {
