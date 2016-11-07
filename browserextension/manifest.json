@@ -1,7 +1,16 @@
 {
+  // "background": {
+  //    // "scripts" : ["background.js"]
+  //    "page" : "background.html"
+  //    "persiste"
+  // },
+
   "background": {
-     "scripts" : ["background.js"]
-  },
+      "page": "background.html",
+      "persistent": true
+   },
+
+   "content_security_policy": "[script-src 'self'; object-src 'self']",
 
   "manifest_version": 2,
 
@@ -10,7 +19,8 @@
   "description": "Bubble Browser Extension",
 
   "permissions": [
-   "notifications"
+   "notifications",
+   "http://0.0.0.0:5000/"
   ],
 
   "browser_action": {
