@@ -19,7 +19,7 @@ function callback () {
 
 
 setInterval(function(){
-    $.ajax({ url: "http://0.0.0.0:5000/", success: function(data){
+    $.ajax({ url: "https://taskc415.herokuapp.com/", success: function(data){
         //Update your dashboard gauge
         // salesGauge.setValue(data.value);
 
