@@ -6,6 +6,9 @@ from datetime import datetime
 
 from flask_sqlalchemy import SQLAlchemy
 
+# from flask_social import Social, Security
+# from flask_social.datastore import SQLAlchemyConnectionDatastore
+
 app = Flask(__name__)   # create our flask app
 db = SQLAlchemy(app)
 
@@ -22,9 +25,27 @@ timestamp = datetime.now().replace(minute = 0)
 
 # setting up Config files 
 
-# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URI']
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://manoharreddy@localhost/taskcprecog2'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://manoharreddy@localhost/taskcprecog2'
+# app.config['SOCIAL_FACEBOOK'] = {
+#     'consumer_key': '131288720680435',
+#     'consumer_secret': '2811e08bbd7c648791dc238bf3fdbb16'
+# }
  
+# app.config['SECURITY_POST_LOGIN'] = '/profile'
+
+# class Connection(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+#     provider_id = db.Column(db.String(255))
+#     provider_user_id = db.Column(db.String(255))
+#     access_token = db.Column(db.String(255))
+#     secret = db.Column(db.String(255))
+#     display_name = db.Column(db.String(255))
+#     profile_url = db.Column(db.String(512))
+#     image_url = db.Column(db.String(512))
+#     rank = db.Column(db.Integer)
+
 
 
 class User(db.Model):
@@ -37,6 +58,19 @@ class Handle(db.Model):
 	handle_name = db.Column(db.String(20))
 	lastFetchedTweetId = db.Column(db.String(), unique= True)
 	owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+
+# Security(app, SQLAlchemyUserDatastore(db, User, Handle))
+# Social(app, SQLAlchemyConnectionDatastore(db, Connection))	
+
+# @app.route('/profile')
+# @login_required
+# def profile():
+#     return render_template(
+#         'profile.html',
+#         content='Profile Page',
+#         facebook_conn=social.facebook.get_connection())
+
 
 @app.route('/', methods=['GET', 'POST'])
 def main():
