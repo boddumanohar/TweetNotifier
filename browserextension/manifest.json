@@ -20,7 +20,7 @@
 
   "permissions": [
    "notifications",
-   "http://0.0.0.0:5000/"
+   "https://taskc415.herokuapp.com/"
   ],
 
   "browser_action": {
