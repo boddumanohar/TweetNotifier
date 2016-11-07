@@ -17,5 +17,5 @@ In this task, I am doing Chrome pluggin and Developing REST API in python flask 
 - The chrome pluggins keeps checking for every 5min for updates.If there is update in any of the handles, the user will be notified of the same.
 
 #### TODO
- -  Prasing JSON data that was sent by server in the chrome application.
  -  Printing the token, geting user ID after facebook login.
+ -	Setting up enviroment variables. 
