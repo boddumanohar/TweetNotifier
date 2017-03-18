@@ -1,4 +1,9 @@
 # This is implimnetation of TASK C.
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/boddumanohar/TweetNotifier)
+
+
+
 THE IDEA: notify the user when one handles posts a tweet.
 
 In this task, I am doing Chrome pluggin and Developing REST API in python flask and using postgres as database.

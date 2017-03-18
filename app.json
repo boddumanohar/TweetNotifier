@@ -1,0 +1,12 @@
+{
+  "name": "TweetNotifier",
+  "description": "A simple service that checks for tweets",
+  "repository": "https://github.com/boddumanohar/TweetNotifier",
+  "logo": "http://ionicframework.com/img/ionic-logo-blog.png",
+  "success_url": "/addhandle",
+  "addons": ["heroku-postgresql:hobby-dev"],
+  "keywords": ["tweets", "notification"],
+  "scripts": {
+    "postdeploy": "python setup.py"
+  }
+}
