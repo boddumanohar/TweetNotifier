@@ -1,13 +1,9 @@
-import os
-import time
 from twitter import *
 from flask import Flask, request, render_template, redirect, abort, flash, jsonify, url_for
 from datetime import datetime
-
 from flask_sqlalchemy import SQLAlchemy
-
-# from flask_social import Social, Security
-# from flask_social.datastore import SQLAlchemyConnectionDatastore
+import os
+import time
 
 app = Flask(__name__)   # create our flask app
 db = SQLAlchemy(app)
@@ -18,15 +14,14 @@ CONSUMER_SECRET='XBYI52DvlWNBzqMqpfzk98gxQLwFqUKeNpgJp1qTvIbfMv9hIH'
 OAUTH_TOKEN='560955859-MCmIMQ6k5UgVvAxA6fXj7MKBisWmTuUibzpGRI9m'
 OAUTH_SECRET='kJkNlPDjZZHWxLsQ6gBSu2tIEj8oEqegLqL9jqI3PTPBX'
 
-
+# Authenticating with Twitter.
 twitter = Twitter(auth=OAuth(OAUTH_TOKEN, OAUTH_SECRET, CONSUMER_KEY, CONSUMER_SECRET))
 timestamp = datetime.now().replace(minute = 0)
 
 # setting up Config files 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://manoharreddy@localhost/taskcprecog2'
-
+# models
 class User(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
 	user_id = db.Column(db.String, unique = True)
@@ -38,6 +33,7 @@ class Handle(db.Model):
 	lastFetchedTweetId = db.Column(db.String(), unique= True)
 	owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
+# routes
 @app.route('/', methods=['GET', 'POST'])
 def main():
 	counter = 0;
@@ -45,25 +41,34 @@ def main():
 	empList = []
 	empDict = {}
 	handlesList = []
-	user_id = 123456
-	r = User.query.filter_by(user_id="123456").first()
-	for i in r.handles.all():
+	r = User.query.filter_by(user_id="1").first() # "1" because you are the only one using this app.
+
+	
+	# TODO: add authentication to identify user.
+	# Probabliy facebook login authentication 
+	# then the user_id value will be facebook user id which will always be the same.
+
+
+	for i in r.handles.all():# get all the handles to be checked from the database.
 		counter = 0	
 		itpTweets = twitter.statuses.user_timeline(screen_name=i.handle_name, since_id=i.lastFetchedTweetId)
 		for t in itpTweets:
-			if(counter==0):
+			if(counter==0): # Getting the latest tweet-id from a particular handle.
 				latesttweet  = t['id']
 				counter += 1
-			else:	 
+			else:
 				counter += 1
 		empDict = {
 		"name" : i.handle_name,
 		"count" : counter
 		}
+
+		# adding
 		empList.append(empDict)	
-		if(counter > 0):
+		if(counter > 0): # If there are any new tweets, save the lastest tweet-id to database.
 			Handle.query.filter_by(handle_name=i.handle_name).update({"lastFetchedTweetId":latesttweet})
 			db.session.commit()
+
 	return jsonify(empList)
 
 @app.route('/login/', methods=['GET','POST'])
@@ -86,7 +91,7 @@ def addHandle():
 	db.session.commit()
 	return redirect(url_for('addinghandle'))
 
-			
+
     
 # --------- Server On ----------
 # start the webserver

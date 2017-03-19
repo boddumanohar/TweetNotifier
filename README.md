@@ -1,37 +1,21 @@
-# This is implimnetation of TASK C.
+![logo](http://i.imgur.com/r4Vr8sP.png) 
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/boddumanohar/TweetNotifier)
+_Never miss a tweet_
+# Overview
+TweetNotifer is a service that counts the tweets posted by a particular twitter handles and returns the count of the tweets as a JSON file. This is a wrapper around twitter API and uses database to keep track of the latest tweets of a particular handle.
 
+# Usage
+This is very much identical to a service in microservices platform.
 
+![services](http://i.imgur.com/utReGOR.png)
 
-THE IDEA: notify the user when one handles posts a tweet.
+When we run the app, it serves on a port and needs a postgres database to save its data. The ideal way to use this is to run on a docker dontainer or deploy to heroku.
 
-In this task, I am doing Chrome pluggin and Developing REST API in python flask and using postgres as database.
+# Deployment
 
----
-The URL for API is taskc415.heroku.com
+#### Deploy to Heroku
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/boddumanohar/TweetNotifier)]
 
-
-#### Instructions for Using chrome.
--   Load the `browserextension` folder into your chorme extensions 
--   By default you will be followed by _@realDonaldTrump_ and _@HillaryClinton_.
--   To add new handle, go to task415.heroku.com/addhandle 
--   Finally, You will be notifed by the pluggin when one of your handles posts on twitter.
-
-#### API in Python flask.
-- The chrome pluggins keeps checking for every 5 secconds for updates.If there is update in any of the handles, the user will be notified of the same.
-- The logic of the api is provided in RestAPI folder.
-
-#### ToDo
-1. Facebook login
-    - problems:
-        1. `FB.getLoginStatus()` doesn't fire up. Even if, domain name( taskc415.heroku.com ) domain name and redirectURL are set correctly.
+#### Deploy to Docker container
+TODO
  
-    
-#### To setup Manually 
-1. Go to RestAPI folder
-2. create your database and update your environment variable accordingly
-3. run setup.py
-4. no go to the route /addhandle and add your handle
-5. update the permissions in the menifest.json file and add your domain 
-6. Now load the chrome extension package and you will be notified when one of the handles posts a tweets 
